@@ -1,9 +1,10 @@
 local world = require('world')
-local triangle = require('entities/triangle')
-local bar = require('entities/bar')
-
-local a = require("aa")
-
+local paddle = require('entities/paddle')
+local ball = require('entities/ball')
+local boundary_bottom = require('entities/boundary-bottom')
+local boundary_top = require('entities/boundary-top')
+local boundary_left = require('entities/boundary-left')
+local boundary_right = require('entities/boundary-right')
 
 local frame = 0
 local time = 0
@@ -14,8 +15,15 @@ love.draw = function()
     if paused then
         love.graphics.print("paused", 0, 10)
     end
-    love.graphics.polygon('line', triangle.body:getWorldPoints(triangle.shape:getPoints()))
-    love.graphics.polygon('line', bar.body:getWorldPoints(bar.shape:getPoints()))
+
+    local ball_x, ball_y = ball.body:getWorldCenter()
+    love.graphics.circle('fill', ball_x, ball_y, ball.shape:getRadius())
+    love.graphics.polygon('line', paddle.body:getWorldPoints(paddle.shape:getPoints()))
+
+    love.graphics.polygon('line', boundary_bottom.body:getWorldPoints(boundary_bottom.shape:getPoints()))
+    love.graphics.polygon('line', boundary_top.body:getWorldPoints(boundary_top.shape:getPoints()))
+    love.graphics.polygon('line', boundary_left.body:getWorldPoints(boundary_left.shape:getPoints()))
+    love.graphics.polygon('line', boundary_right.body:getWorldPoints(boundary_right.shape:getPoints()))
 end
 
 love.update = function(dt)
@@ -25,8 +33,12 @@ love.update = function(dt)
     if not paused then
         world:update(dt)
     end
-    -- print(triangle.body:getWorldPoints(triangle.shape:getPoints()))
-    -- print(triangle.shape:getPoints())
+end
+
+love.focus = function(f)
+    if not f then
+        paused = false
+    end
 end
 
 local keymap = {
@@ -37,14 +49,7 @@ local keymap = {
     space = function()
         paused = not paused
     end
-
 }
-
-love.focus = function(f)
-    if not f then
-        paused = false
-    end
-end
 
 love.keypressed = function(key)
     if keymap[key] then
