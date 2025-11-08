@@ -5,10 +5,23 @@ local boundary_bottom = require('entities/boundary-bottom')
 local boundary_top = require('entities/boundary-top')
 local boundary_left = require('entities/boundary-left')
 local boundary_right = require('entities/boundary-right')
+local brick = require('entities/brick')
 
 local frame = 0
 local time = 0
 local paused = false
+
+local entities = {
+    boundary_bottom(400, 606),
+    boundary_top(400, -6),
+    boundary_left(-6, 300),
+    boundary_right(805, 300),
+    paddle(300, 400),
+    ball(300, 300),
+    brick(100, 100),
+    brick(200, 100),
+    brick(300, 100)
+}
 
 love.draw = function()
     love.graphics.print("fps: " .. math.floor(frame / time), 0, 0)
@@ -16,14 +29,9 @@ love.draw = function()
         love.graphics.print("paused", 0, 10)
     end
 
-    local ball_x, ball_y = ball.body:getWorldCenter()
-    love.graphics.circle('fill', ball_x, ball_y, ball.shape:getRadius())
-    love.graphics.polygon('line', paddle.body:getWorldPoints(paddle.shape:getPoints()))
-
-    love.graphics.polygon('line', boundary_bottom.body:getWorldPoints(boundary_bottom.shape:getPoints()))
-    love.graphics.polygon('line', boundary_top.body:getWorldPoints(boundary_top.shape:getPoints()))
-    love.graphics.polygon('line', boundary_left.body:getWorldPoints(boundary_left.shape:getPoints()))
-    love.graphics.polygon('line', boundary_right.body:getWorldPoints(boundary_right.shape:getPoints()))
+    for _, entity in ipairs(entities) do
+        if entity.draw then entity:draw() end
+    end
 end
 
 love.update = function(dt)
