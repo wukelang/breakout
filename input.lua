@@ -5,15 +5,19 @@ local release_functions = {}
 input.left = false
 input.right = false
 input.paused = false
-
+input.currentKey = nil
 
 input.press = function(pressed_key)
+    input.currentKey = pressed_key
+
     if press_functions[pressed_key] then
         press_functions[pressed_key]()
     end
 end
 
 input.release = function(released_key)
+    input.currentKey = nil
+
     if release_functions[released_key] then
         release_functions[released_key]()
     end
