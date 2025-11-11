@@ -9,6 +9,8 @@ local begin_contact_callback = function(fixture_a, fixture_b, contact)
 end
 
 local end_contact_callback = function(fixture_a, fixture_b, contact)
+    -- print(fixture_a:getShape(), fixture_b:getShape())
+
     local entity_a = fixture_a:getUserData()
     local entity_b = fixture_b:getUserData()
     if entity_a.end_contact then entity_a:end_contact() end

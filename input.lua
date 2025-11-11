@@ -1,42 +1,12 @@
-local input = {}
-local press_functions = {}
-local release_functions = {}
+local state = require('state')
 
-input.left = false
-input.right = false
-input.paused = false
-input.currentKey = nil
-
-input.press = function(pressed_key)
-    input.currentKey = pressed_key
-
-    if press_functions[pressed_key] then
-        press_functions[pressed_key]()
-    end
-end
-
-input.release = function(released_key)
-    input.currentKey = nil
-
-    if release_functions[released_key] then
-        release_functions[released_key]()
-    end
-end
-
-input.toggle_focus = function(focused)
-    if not focused then
-        input.paused = true
-    end
-end
-
-
-press_functions = {
+local press_functions = {
     left = function()
-        input.left = true
+        state.button_left = true
     end,
 
     right = function()
-        input.right = true
+        state.button_right = true
     end,
 
     escape = function()
@@ -44,18 +14,44 @@ press_functions = {
     end,
 
     space = function()
-        input.paused = not input.paused
+        if state.game_over or state.stage_cleared then
+            return
+        end
+
+        state.paused = not state.paused
     end
 }
 
-release_functions = {
+local release_functions = {
     left = function()
-        input.left = false
+        state.button_left = false
     end,
 
     right = function()
-        input.right = false
+        state.button_right = false
     end
 }
 
-return input
+return {
+    press = function(pressed_key)
+        state.current_key = pressed_key
+
+        if press_functions[pressed_key] then
+            press_functions[pressed_key]()
+        end
+    end,
+
+    release = function(released_key)
+        state.current_key = nil
+
+        if release_functions[released_key] then
+            release_functions[released_key]()
+        end
+    end,
+
+    toggle_focus = function(focused)
+        if not focused then
+            state.paused = true
+        end
+    end
+}

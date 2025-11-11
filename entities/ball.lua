@@ -6,7 +6,7 @@ return function(x_pos, y_pos)
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'dynamic')
     entity.body:setMass(32)
-    entity.body:setLinearVelocity(300, 300)
+    entity.body:setLinearVelocity(300, -300)
     entity.shape = love.physics.newCircleShape(200, 200, 10)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setRestitution(1)
@@ -29,11 +29,10 @@ return function(x_pos, y_pos)
             self.body:setLinearVelocity(vel_x * .75, vel_y * .75)
         end
 
+        -- print(speed)
         if speed > entity_max_speed then
-            print("overspeed")
             self.body:setLinearDamping(0.5)
         else
-            print("normal")
             self.body:setLinearDamping(0)
         end
     end

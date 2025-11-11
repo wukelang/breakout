@@ -1,5 +1,5 @@
 local world = require('world')
-local input = require('input')
+local state = require('state')
 
 return function(x_pos, y_pos)
     local window_width = love.window.getMode()
@@ -20,15 +20,15 @@ return function(x_pos, y_pos)
     end
 
     entity.update = function(self, dt)
-        if input.left and input.right then
-            return
+        if state.button_left and state.button_right then
+            self.body:setLinearVelocity(0, 0)
         end
 
         local self_x = self.body:getX()
 
-        if input.left and self_x > left_boundary then
+        if state.button_left and self_x > left_boundary then
             self.body:setLinearVelocity(-entity_speed, 0)
-        elseif input.right and self_x < right_boundary then
+        elseif state.button_right and self_x < right_boundary then
             self.body:setLinearVelocity(entity_speed, 0)
         else
             self.body:setLinearVelocity(0, 0)
