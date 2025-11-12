@@ -14,6 +14,7 @@ return function(x_pos, y_pos)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setUserData(entity)
 
+    entity.type = 'brick'
     entity.health = 2
 
     entity.draw = function(self)

@@ -14,9 +14,13 @@ love.update = function(dt)
         return
     end
 
+    local have_bricks = false
     local index = 1
     while index <= #entities do
         local entity = entities[index]
+
+        if entity.type == 'brick' then have_bricks = true end
+
         if entity.update then entity:update(dt) end
 
         if entity.health and entity.health < 1 then
@@ -27,6 +31,7 @@ love.update = function(dt)
         end
     end
 
+    state.stage_cleared = not have_bricks
     world:update(dt)
 end
 
