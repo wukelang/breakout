@@ -5,18 +5,30 @@ return function(x_pos, y_pos)
     local window_width = love.window.getMode()
     local entity_width = 120
     local entity_height = 5
-    local entity_speed = 600
+    local entity_speed = 800
+    local paddle_radius = 60
     local left_boundary = (entity_width / 2) + 2
     local right_boundary = window_width - (entity_width / 2) - 2
 
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'kinematic')
-    entity.shape = love.physics.newRectangleShape(entity_width, entity_height)
+    -- entity.shape = love.physics.newRectangleShape(entity_width, entity_height)
+    local paddle_shape = love.physics.newRectangleShape(entity_width, entity_height)
+
+    entity.shape = love.physics.newCircleShape(paddle_radius)
+
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setUserData(entity)
+    entity.type = "paddle"
 
     entity.draw = function(self)
-        love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
+        -- love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
+        -- local x, y = self.body:getWorldPoints(self.shape:getPoints())
+        -- love.graphics.ellipse('line', x, y, 50, 50)
+        local x, y = self.body:getWorldPoints(self.shape:getPoint())
+
+        love.graphics.circle('line', x, y, paddle_radius)
+        love.graphics.polygon('fill', self.body:getWorldPoints(paddle_shape:getPoints()))
     end
 
     entity.update = function(self, dt)

@@ -13,8 +13,8 @@ local end_contact_callback = function(fixture_a, fixture_b, contact)
 
     local entity_a = fixture_a:getUserData()
     local entity_b = fixture_b:getUserData()
-    if entity_a.end_contact then entity_a:end_contact() end
-    if entity_b.end_contact then entity_b:end_contact() end
+    if entity_a.end_contact then entity_a:end_contact(entity_a, entity_b) end
+    if entity_b.end_contact then entity_b:end_contact(entity_b, entity_a) end
 end
 
 local pre_solve_callback = function(fixture_a, fixture_b, contact)
