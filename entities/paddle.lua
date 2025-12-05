@@ -12,23 +12,13 @@ return function(x_pos, y_pos)
 
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'kinematic')
-    -- entity.shape = love.physics.newRectangleShape(entity_width, entity_height)
-    local paddle_shape = love.physics.newRectangleShape(entity_width, entity_height)
-
-    entity.shape = love.physics.newCircleShape(paddle_radius)
-
+    entity.shape = love.physics.newRectangleShape(entity_width, entity_height)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setUserData(entity)
     entity.type = "paddle"
 
     entity.draw = function(self)
-        -- love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
-        -- local x, y = self.body:getWorldPoints(self.shape:getPoints())
-        -- love.graphics.ellipse('line', x, y, 50, 50)
-        local x, y = self.body:getWorldPoints(self.shape:getPoint())
-
-        love.graphics.circle('line', x, y, paddle_radius)
-        love.graphics.polygon('fill', self.body:getWorldPoints(paddle_shape:getPoints()))
+        love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
     end
 
     entity.update = function(self, dt)

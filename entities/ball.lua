@@ -48,9 +48,35 @@ return function(x_pos, y_pos)
         end
     end
 
-    entity.end_contact = function(self, entity_a, entity_b)
+    -- entity.end_contact = function(self, entity_a, entity_b, contact)
+    --     if entity_b.type and entity_b.type == "paddle" then
+    --         print("ball end_contact: contact with type: " .. entity_b.type)
+    --     end
+    -- end
+
+    entity.begin_contact = function(self, entity_a, entity_b, contact)
         if entity_b.type and entity_b.type == "paddle" then
-            print("ball end_contact: contact with type: " ..entity_b.type)
+            local x1, y1 = contact:getPositions()
+            print(x1, y1)
+            
+            local paddle_x_center, pos_y = entity_b.body:getPosition()
+            print(paddle_x_center, pos_y)
+
+            -- local relative_x_intersection = x1 - paddle_x_center
+            local relative_x_intersection = paddle_x_center - x1
+            -- print("Relative intersection: " .. relative_x_intersection)
+
+            local normalized_x_intersection = relative_x_intersection / 60  -- refactor
+            print("Normalized intersection: " .. normalized_x_intersection)
+
+            local bounce_angle = 90 + (70 * normalized_x_intersection)  -- need to account for x axis
+            print("Bounce angle: " .. bounce_angle)
+
+            ball_vx = math.cos(math.rad(bounce_angle))
+            ball_vy = math.sin(math.rad(bounce_angle))
+            print(ball_vx, ball_vy)
+            self.body:setLinearVelocity(400 * ball_vx, 400 * ball_vy)
+
         end
     end
 
