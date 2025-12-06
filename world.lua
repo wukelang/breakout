@@ -20,8 +20,10 @@ local end_contact_callback = function(fixture_a, fixture_b, contact)
 end
 
 local pre_solve_callback = function(fixture_a, fixture_b, contact)
-
-
+    local entity_a = fixture_a:getUserData()
+    local entity_b = fixture_b:getUserData()
+    if entity_a.pre_solve_contact then entity_a:pre_solve_contact(entity_a, entity_b, contact) end
+    if entity_b.pre_solve_contact then entity_b:pre_solve_contact(entity_b, entity_a, contact) end
 end
 
 local post_solve_callback = function(fixture_a, fixture_b, contact)
@@ -34,7 +36,7 @@ local world = love.physics.newWorld(0, 0)
 world:setCallbacks(
     begin_contact_callback,
     end_contact_callback,
-    nil,
+    pre_solve_callback,
     nil
 )
 
