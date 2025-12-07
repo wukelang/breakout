@@ -1,5 +1,9 @@
 
 return {
+    ball_standby = true,
+    paddle_center_x = 400,
+    paddle_center_y = 300,
+    lives = 3,
     button_left = false,
     button_right = false,
     current_key = nil,

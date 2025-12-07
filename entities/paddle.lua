@@ -5,7 +5,7 @@ return function(x_pos, y_pos)
     local window_width = love.window.getMode()
     local entity_width = 120
     local entity_height = 5
-    local entity_speed = 800
+    local entity_speed = 600
     local paddle_radius = 60
     local left_boundary = (entity_width / 2) + 2
     local right_boundary = window_width - (entity_width / 2) - 2
@@ -28,6 +28,9 @@ return function(x_pos, y_pos)
         end
 
         local self_x = self.body:getX()
+        local self_y = self.body:getY()
+        -- state.paddle_center_x, state.paddle_center_y = self.body:getPosition()
+        state.paddle_center_x, state.paddle_center_y = self_x, self_y
 
         if state.button_left and self_x > left_boundary then
             self.body:setLinearVelocity(-entity_speed, 0)

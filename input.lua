@@ -9,6 +9,10 @@ local press_functions = {
         state.button_right = true
     end,
 
+    up = function()
+        state.ball_standby = false
+    end,
+
     escape = function()
         love.event.quit()
     end,

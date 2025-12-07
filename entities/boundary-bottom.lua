@@ -9,7 +9,10 @@ return function(x_pos, y_pos)
     entity.fixture:setUserData(entity)
 
     entity.end_contact = function()
-        state.game_over = true
+        state.lives = state.lives - 1
+        if state.lives <= 0 then
+            state.game_over = true
+        end
     end
 
     return entity

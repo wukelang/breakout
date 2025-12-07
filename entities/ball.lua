@@ -1,4 +1,5 @@
 local world = require('world')
+local state = require('state')
 
 return function(x_pos, y_pos)
     local entity_min_speed = 500
@@ -7,8 +8,11 @@ return function(x_pos, y_pos)
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'dynamic')
     entity.body:setMass(32)
-    entity.body:setLinearVelocity(300, -300)
-    entity.shape = love.physics.newCircleShape(200, 200, 10)
+    
+    entity.body:setLinearVelocity(0, 0)
+    -- entity.shape = love.physics.newCircleShape(200, 200, 10)
+    entity.shape = love.physics.newCircleShape(10)
+    -- entity.shape = love.physics.newCircleShape(state.paddle_center_x, state.paddle_center_y, 10)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setRestitution(1)
     entity.fixture:setFriction(0)
@@ -22,30 +26,42 @@ return function(x_pos, y_pos)
     end
 
     entity.update = function(self, dt)
-        local vel_x, vel_y = self.body:getLinearVelocity()
-        local speed = math.abs(vel_x) + math.abs(vel_y)
-
-        local vel_x_is_critical = math.abs(vel_x) > entity_max_speed
-        local vel_y_is_critical = math.abs(vel_y) > entity_max_speed
-        local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
-        local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
-
-        if vel_x_is_critical or vel_y_is_critical then
-            self.body:setLinearVelocity(vel_x * .50, vel_y * .50)
-        end
-        if vel_x_too_slow then
-            self.body:setLinearVelocity(vel_x * 1.01, vel_y)
-        end
-        if vel_y_too_slow then
-            self.body:setLinearVelocity(vel_x, vel_y * 1.01)
-        end
-
-        -- print(speed)
-        if speed > entity_max_speed then
-            self.body:setLinearDamping(0.4)
+        if state.ball_standby == true then
+            self.body:setLinearVelocity(0, 0) 
+            local posx, posy = self.body:getPosition()
+            self.body:setPosition(state.paddle_center_x, math.floor(state.paddle_center_y - 10))
         else
-            self.body:setLinearDamping(0)
+            if self.body:getLinearVelocity() == 0 then
+                self.body:setLinearVelocity(300, -300)
+            end
+
+            local vel_x, vel_y = self.body:getLinearVelocity()
+            local speed = math.abs(vel_x) + math.abs(vel_y)
+
+            local vel_x_is_critical = math.abs(vel_x) > entity_max_speed
+            local vel_y_is_critical = math.abs(vel_y) > entity_max_speed
+            local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
+            local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
+
+            if vel_x_is_critical or vel_y_is_critical then
+                self.body:setLinearVelocity(vel_x * .50, vel_y * .50)
+            end
+            if vel_x_too_slow then
+                self.body:setLinearVelocity(vel_x * 1.01, vel_y)
+            end
+            if vel_y_too_slow then
+                self.body:setLinearVelocity(vel_x, vel_y * 1.01)
+            end
+
+            -- print(speed)
+            if speed > entity_max_speed then
+                self.body:setLinearDamping(0.4)
+            else
+                self.body:setLinearDamping(0)
+            end
+
         end
+
     end
 
 

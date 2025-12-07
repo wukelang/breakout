@@ -12,9 +12,10 @@ local game_over_text = require('entities/game-over-text')
 local stage_clear_text = require('entities/stage-clear-text')
 local input_display = require('entities/input-display')
 local fps_display = require('entities/fps-display')
+local lives_display = require('entities/lives-display')
 
 local entities = {
-    boundary_bottom(400, 606),
+    boundary_bottom(400, 650),  -- Slightly offscreen.
     boundary_top(400, -6),
     boundary_vertical(-6, 300),
     boundary_vertical(805, 300),
@@ -23,17 +24,20 @@ local entities = {
     pause_text(),
     game_over_text(),
     stage_clear_text(),
-    fps_display(0, 0),
-    input_display(0, 10)
+    fps_display(0, 10),
+    input_display(0, 20),
+    lives_display(0, 0)
 }
 
-local row_width = love.window.getMode() - 20
-local row_height = 40
+-- Refactor to use width/height from brick entity
+local row_width = love.window.getMode() - 200
+local row_height = 20
 local brick_width = 60
 
-for i = 0, 38 do 
-    local brick_x = ((brick_width * i) % row_width) + 40
-    local brick_y = (math.floor((brick_width * i) / row_width) * row_height) + 80
+for i = 0, 39 do 
+    local brick_x = ((brick_width * i) % row_width) + 130
+    local brick_y = (math.floor((brick_width * i) / row_width) * row_height) + 120
+    -- print(brick_x, brick_y)
     table.insert(entities, 1, brick(brick_x, brick_y))
 end
 
