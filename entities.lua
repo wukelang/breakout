@@ -15,7 +15,7 @@ local fps_display = require('entities/fps-display')
 local lives_display = require('entities/lives-display')
 
 local entities = {
-    boundary_bottom(400, 650),  -- Slightly offscreen.
+    boundary_bottom(400, 800),  -- Slightly offscreen.
     boundary_top(400, -6),
     boundary_vertical(-6, 300),
     boundary_vertical(805, 300),
