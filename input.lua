@@ -1,4 +1,5 @@
 local state = require('state')
+local sounds = require('sounds')
 
 local press_functions = {
     left = function()
@@ -11,6 +12,10 @@ local press_functions = {
 
     up = function()
         state.ball_standby = false
+    end,
+
+    down = function()
+        sounds.blip:play()
     end,
 
     escape = function()

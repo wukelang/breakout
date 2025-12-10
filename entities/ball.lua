@@ -1,6 +1,6 @@
 local world = require('world')
 local state = require('state')
-
+local sounds = require('sounds')
 
 
 return function(x_pos, y_pos)
@@ -12,9 +12,7 @@ return function(x_pos, y_pos)
     entity.body:setMass(32)
     
     entity.body:setLinearVelocity(0, 0)
-    -- entity.shape = love.physics.newCircleShape(200, 200, 10)
     entity.shape = love.physics.newCircleShape(10)
-    -- entity.shape = love.physics.newCircleShape(state.paddle_center_x, state.paddle_center_y, 10)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setRestitution(1)
     entity.fixture:setFriction(0)
@@ -83,7 +81,13 @@ return function(x_pos, y_pos)
 
     end
 
-
+    entity.pre_solve_contact = function(self, entity_a, entity_b, contact)
+        if entity_b.type and entity_b.type == "brick" then
+            sounds.brick_blip:play()
+        elseif entity_b.type and entity_b.type == "paddle" then
+            sounds.blip:play()
+        end
+    end
 
     return entity
 end

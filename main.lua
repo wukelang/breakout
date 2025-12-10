@@ -2,11 +2,16 @@ local world = require('world')
 local entities = require('entities')
 local input = require('input')
 local state = require('state')
+local sounds = require('sounds')
 
 love.draw = function()
     for _, entity in ipairs(entities) do
         if entity.draw then entity:draw() end
     end
+end
+
+love.load = function()
+
 end
 
 love.update = function(dt)
