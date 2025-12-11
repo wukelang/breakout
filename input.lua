@@ -14,10 +14,6 @@ local press_functions = {
         state.ball_standby = false
     end,
 
-    down = function()
-        sounds.blip:play()
-    end,
-
     escape = function()
         love.event.quit()
     end,

@@ -11,7 +11,7 @@ love.draw = function()
 end
 
 love.load = function()
-
+    love.graphics.setBackgroundColor(0.1, 0.1, 0.1, 0.1)
 end
 
 love.update = function(dt)
