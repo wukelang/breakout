@@ -64,13 +64,13 @@ return function(x_pos, y_pos)
             
             if vel_x_is_critical or vel_y_is_critical then
                 -- self.body:setLinearVelocity(vel_x * .98, vel_y * .98)
-                self.body:setLinearDamping(0.4)
+                -- self.body:setLinearDamping(0.4)
             end
             if vel_x_too_slow then
-                self.body:setLinearVelocity(vel_x * 1.01, vel_y)
+                -- self.body:setLinearVelocity(vel_x * 1.01, vel_y)
             end
             if vel_y_too_slow then
-                self.body:setLinearVelocity(vel_x, vel_y * 1.01)
+                -- self.body:setLinearVelocity(vel_x, vel_y * 1.01)
             end
 
             if speed <= entity_max_speed then

@@ -1,3 +1,4 @@
+-- Gameplay
 local boundary_vertical = require('entities/boundary-vertical')
 local boundary_horizontal = require('entities/boundary-horizontal')
 local boundary_top = require('entities/boundary-top')
@@ -6,7 +7,9 @@ local boundary_bottom = require('entities/boundary-bottom')
 local paddle = require('entities/paddle')
 local ball = require('entities/ball')
 local brick = require('entities/brick')
+local brick_bomb = require("entities/brick-bomb")
 
+-- UI
 local pause_text = require('entities/pause-text')
 local game_over_text = require('entities/game-over-text')
 local stage_clear_text = require('entities/stage-clear-text')
@@ -40,12 +43,18 @@ local row_padding = window_width - brick_row_width
 local brick_row_colors = { "red", "orange", "yellow", "green", "cyan" }
 
 for i = 0, 39 do
-    local row_num = math.floor((brick_width * i) / brick_row_width)
+    local row_num = math.floor((brick_width * i) / brick_row_width) + 1
     local brick_x = ((brick_width * i) % brick_row_width) + 180
     local brick_y = (row_num * brick_height) + 120
     -- print(row_num)
     -- print(brick_x, brick_y)
-    table.insert(entities, 1, brick(brick_x, brick_y, brick_row_colors[row_num + 1]))
+
+    -- if i ~= 36 then
+    if i ~= 28 then
+        table.insert(entities, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
+    else
+        table.insert(entities, 1, brick_bomb(brick_x, brick_y, brick_row_colors[row_num]))
+    end
 end
 
 return entities
