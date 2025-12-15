@@ -8,20 +8,17 @@ return function(x_pos, y_pos, color)
     
     entity.image = textures.bomb
     
-    entity.end_contact = function(self)
-        self.health = self.health - 1
-        self:on_destroy()
-        sounds.bomb:play()
-    end
 
     entity.on_destroy = function(self)
-        local x, y = self.body:getPosition()
+        local x, y = entity.body:getPosition()
         -- print(x, y)
+
+        -- Get nearby bricks and reduce health
         world:rayCast(x - 120, y, x + 60, y, worldRayCastCallback)
         world:rayCast(x - 120, y + 20, x + 60, y + 20, worldRayCastCallback)
         world:rayCast(x - 120, y - 20, x + 60, y - 20, worldRayCastCallback)
 
-        local bodies = world:getBodies()
+        sounds.bomb:play()
     end
     
     function worldRayCastCallback(fixture, x, y, xn, yn, fraction)

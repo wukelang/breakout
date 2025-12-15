@@ -30,6 +30,7 @@ love.update = function(dt)
 
         if entity.health and entity.health < 1 then
             table.remove(entities, index)
+            if entity.on_destroy then entity.on_destroy() end
             entity.fixture:destroy()
         else
             index = index + 1

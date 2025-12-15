@@ -49,11 +49,12 @@ for i = 0, 39 do
     -- print(row_num)
     -- print(brick_x, brick_y)
 
-    -- if i ~= 36 then
-    if i ~= 28 then
-        table.insert(entities, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
-    else
+    -- if i == 28 or i == 12 or i == 20 or i == 26 or i == 34 or i == 27 then
+    -- if true then
+    if i % 2 == 0 then
         table.insert(entities, 1, brick_bomb(brick_x, brick_y, brick_row_colors[row_num]))
+    else
+        table.insert(entities, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
     end
 end
 

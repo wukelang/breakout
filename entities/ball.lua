@@ -28,13 +28,13 @@ return function(x_pos, y_pos)
 
     entity.launch = function(self)
         if state.button_left and state.button_right then
-            entity.body:setLinearVelocity(0, -300)
+            entity.body:setLinearVelocity(0, -500)
         elseif state.button_left then
             entity.body:setLinearVelocity(-300, -300)
         elseif state.button_right then
             entity.body:setLinearVelocity(300, -300)
         else
-            entity.body:setLinearVelocity(0, -300)
+            entity.body:setLinearVelocity(0, -500)
         end
 
         entity.last_state = "normal"
