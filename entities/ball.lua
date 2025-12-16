@@ -34,13 +34,16 @@ return function(x_pos, y_pos)
     end
 
     entity.launch = function(self)
+        -- Calculate 45 degree launch angle
+        local vx = math.cos(math.rad(45)) * entity.speed
+        local vy = math.sin(math.rad(45)) * entity.speed
+
         if state.button_left and state.button_right then
             entity.body:setLinearVelocity(0, -entity.speed)
         elseif state.button_left then
-            -- TODO: use state speed and angle to calculate
-            entity.body:setLinearVelocity(-entity.speed, -entity.speed)
+            entity.body:setLinearVelocity(-vx, -vy)
         elseif state.button_right then
-            entity.body:setLinearVelocity(entity.speed, -entity.speed)
+            entity.body:setLinearVelocity(vx, -vy)
         else
             entity.body:setLinearVelocity(0, -entity.speed)
         end

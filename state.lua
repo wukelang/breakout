@@ -6,7 +6,7 @@ return {
     default_lives = 2,
     lives = 2,
     level = 0,
-    -- default_speed = 480,
+    default_speed = 480,
     speed = 480,
     button_left = false,
     button_right = false,
