@@ -10,7 +10,7 @@ return function(x_pos, y_pos)
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'dynamic')
     entity.body:setMass(32)
-    
+    entity.body:setLinearDamping(0)
     entity.body:setLinearVelocity(0, 0)
     entity.shape = love.physics.newCircleShape(10)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
@@ -24,6 +24,12 @@ return function(x_pos, y_pos)
     entity.draw = function(self)
         local self_x, self_y = self.body:getWorldCenter()
         love.graphics.circle('fill', self_x, self_y, self.shape:getRadius())
+
+        local vx, vy = self.body:getLinearVelocity()
+        vx = math.floor(vx)
+        vy = math.floor(vy)
+        local text = "ball: " .. vx .. " " .. vy
+        love.graphics.print(text, 0, 580)
     end
 
     entity.launch = function(self)
@@ -61,20 +67,13 @@ return function(x_pos, y_pos)
             local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
             local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
 
-            
-            if vel_x_is_critical or vel_y_is_critical then
-                -- self.body:setLinearVelocity(vel_x * .98, vel_y * .98)
-                -- self.body:setLinearDamping(0.4)
-            end
-            if vel_x_too_slow then
-                -- self.body:setLinearVelocity(vel_x * 1.01, vel_y)
-            end
-            if vel_y_too_slow then
-                -- self.body:setLinearVelocity(vel_x, vel_y * 1.01)
-            end
-
-            if speed <= entity_max_speed then
-                self.body:setLinearDamping(0)
+            -- Prevent fast ball when contacting with moving paddle side 
+            if vel_x_is_critical then
+                if vel_x > 0 then
+                    self.body:setLinearVelocity(entity_max_speed, vel_y)
+                else
+                    self.body:setLinearVelocity(-entity_max_speed, vel_y)
+                end
             end
 
         end

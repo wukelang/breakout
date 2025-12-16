@@ -25,7 +25,10 @@ local pre_solve_callback = function(fixture_a, fixture_b, contact)
 end
 
 local post_solve_callback = function(fixture_a, fixture_b, contact)
-
+    local entity_a = fixture_a:getUserData()
+    local entity_b = fixture_b:getUserData()
+    if entity_a.post_solve_contact then entity_a:post_solve_contact(entity_a, entity_b, contact) end
+    if entity_b.post_solve_contact then entity_b:post_solve_contact(entity_b, entity_a, contact) end
 
 end
 
@@ -35,7 +38,7 @@ world:setCallbacks(
     begin_contact_callback,
     end_contact_callback,
     pre_solve_callback,
-    nil
+    post_solve_callback
 )
 
 return world
