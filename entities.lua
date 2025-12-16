@@ -26,36 +26,11 @@ local entities = {
     ball(300, 300),
     pause_text(),
     game_over_text(),
-    stage_clear_text(),
+    -- stage_clear_text(),
     fps_display(0, 10),
     input_display(0, 20),
     lives_display(0, 0)
 }
 
--- Refactor to use width/height from brick entity
-local window_width, window_height = love.window.getMode()
-local row_brick_number = 8
-local brick_width = 63
-local brick_height = 23
-local brick_row_width = row_brick_number * brick_width
-local row_padding = window_width - brick_row_width
-
-local brick_row_colors = { "red", "orange", "yellow", "green", "cyan" }
-
-for i = 0, 39 do
-    local row_num = math.floor((brick_width * i) / brick_row_width) + 1
-    local brick_x = ((brick_width * i) % brick_row_width) + 180
-    local brick_y = (row_num * brick_height) + 120
-    -- print(row_num)
-    -- print(brick_x, brick_y)
-
-    -- if i == 28 or i == 12 or i == 20 or i == 26 or i == 34 or i == 27 then
-    -- if true then
-    if i % 2 == 0 then
-        table.insert(entities, 1, brick_bomb(brick_x, brick_y, brick_row_colors[row_num]))
-    else
-        table.insert(entities, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
-    end
-end
 
 return entities

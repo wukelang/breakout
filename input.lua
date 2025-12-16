@@ -1,5 +1,4 @@
 local state = require('state')
-local sounds = require('sounds')
 
 local press_functions = {
     left = function()
@@ -12,6 +11,12 @@ local press_functions = {
 
     up = function()
         state.ball_standby = false
+    end,
+
+    -- Restart Game
+    r = function()
+        state.lives = state.default_lives
+        state.ball_standby = true
     end,
 
     escape = function()

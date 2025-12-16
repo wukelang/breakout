@@ -10,9 +10,8 @@ return function(x_pos, y_pos)
 
     entity.end_contact = function()
         state.lives = state.lives - 1
-        if state.lives <= 0 then
-            state.game_over = true
-        else
+
+        if state.lives > 0 then
             state.ball_standby = true
         end
     end

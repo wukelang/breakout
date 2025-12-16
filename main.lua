@@ -3,6 +3,7 @@ local entities = require('entities')
 local input = require('input')
 local state = require('state')
 local sounds = require('sounds')
+local generate_bricks = require("generate-bricks")
 
 love.draw = function()
     for _, entity in ipairs(entities) do
@@ -15,12 +16,14 @@ love.load = function()
 end
 
 love.update = function(dt)
-    if state.game_over or state.paused or state.stage_cleared then
-        return
-    end
-
     local have_bricks = false
     local index = 1
+
+    state.game_over = false
+    if state.lives <= 0 then
+        state.game_over = true
+    end
+
     while index <= #entities do
         local entity = entities[index]
 
@@ -37,7 +40,22 @@ love.update = function(dt)
         end
     end
 
+    -- Generate new bricks if stage cleared.
+    if have_bricks ~= true then
+        local bricks = generate_bricks:generate_bricks(entites)
+        for i=1, #bricks do
+            entities[#entities+1] = bricks[i]
+        end
+        state.stage_cleared = false
+        state.ball_standby = true
+    end
+
     state.stage_cleared = not have_bricks
+
+    if state.game_over or state.paused or state.stage_cleared then
+        return
+    end
+
     world:update(dt)
 end
 
