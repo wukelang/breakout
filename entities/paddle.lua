@@ -6,7 +6,8 @@ return function(x_pos, y_pos)
     local entity_width = 120
     local entity_height = 5
     -- local entity_height = 40
-    local entity_speed = 500
+    local paddle_speed = state.default_speed
+    local bounce_speed = state.default_speed
     local paddle_radius = 60
     local left_boundary = (entity_width / 2) + 2
     local right_boundary = window_width - (entity_width / 2) - 2
@@ -24,6 +25,10 @@ return function(x_pos, y_pos)
     end
 
     entity.update = function(self, dt)
+        bounce_speed = state.speed
+        paddle_speed = state.speed
+        -- print("paddle bounce speed:", bounce_speed)
+        
         if state.button_left and state.button_right then
             self.body:setLinearVelocity(0, 0)
         end
@@ -34,16 +39,15 @@ return function(x_pos, y_pos)
         state.paddle_center_x, state.paddle_center_y = self_x, self_y
 
         if state.button_left and self_x > left_boundary then
-            self.body:setLinearVelocity(-entity_speed, 0)
+            self.body:setLinearVelocity(-paddle_speed, 0)
         elseif state.button_right and self_x < right_boundary then
-            self.body:setLinearVelocity(entity_speed, 0)
+            self.body:setLinearVelocity(paddle_speed, 0)
         else
             self.body:setLinearVelocity(0, 0)
         end
     end
 
     entity.pre_solve_contact = function(self, entity_a, entity_b, contact)
-
         if entity_b.type and entity_b.type == "ball" then
             local ball_entity = entity_b
             local contact_x, contact_y = contact:getPositions()
@@ -64,11 +68,11 @@ return function(x_pos, y_pos)
             -- TODO: rewrite edge case handling, for some reason ball goes downwards despite correct ball_vy
             if math.abs(normalized_x_intersection) > 1 then
                 -- print("paddle side hit")
-                ball_entity.body:setLinearVelocity(500 * ball_vx, 500 * -0.34)
+                ball_entity.body:setLinearVelocity(bounce_speed * ball_vx, bounce_speed * -0.34)
                 return
             end
 
-            ball_entity.body:setLinearVelocity(500 * ball_vx, 500 * ball_vy)
+            ball_entity.body:setLinearVelocity(bounce_speed * ball_vx, bounce_speed * ball_vy)
         end
 
     end

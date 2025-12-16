@@ -16,6 +16,7 @@ local stage_clear_text = require('entities/stage-clear-text')
 local input_display = require('entities/input-display')
 local fps_display = require('entities/fps-display')
 local lives_display = require('entities/lives-display')
+local level_display = require('entities/level-display')
 
 local entities = {
     boundary_bottom(400, 800),  -- Slightly offscreen.
@@ -27,9 +28,10 @@ local entities = {
     pause_text(),
     game_over_text(),
     -- stage_clear_text(),
+    lives_display(0, 0),
     fps_display(0, 10),
     input_display(0, 20),
-    lives_display(0, 0)
+    level_display(0, 30)
 }
 
 

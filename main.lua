@@ -24,6 +24,10 @@ love.update = function(dt)
         state.game_over = true
     end
 
+    if state.game_over or state.paused then
+        return
+    end
+
     while index <= #entities do
         local entity = entities[index]
 
@@ -48,12 +52,9 @@ love.update = function(dt)
         end
         state.stage_cleared = false
         state.ball_standby = true
-    end
-
-    state.stage_cleared = not have_bricks
-
-    if state.game_over or state.paused or state.stage_cleared then
-        return
+        state.level = state.level + 1
+        state.speed = state.speed + 20
+        -- have_bricks = true
     end
 
     world:update(dt)

@@ -4,8 +4,8 @@ local sounds = require('sounds')
 
 
 return function(x_pos, y_pos)
-    local entity_min_speed = 500
-    local entity_max_speed = 500
+    -- local entity_min_speed = state.default_speed
+    -- local entity.speed = state.speed
 
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'dynamic')
@@ -20,6 +20,7 @@ return function(x_pos, y_pos)
 
     entity.type = "ball"
     entity.last_state = nil
+    entity.speed = state.speed
 
     entity.draw = function(self)
         local self_x, self_y = self.body:getWorldCenter()
@@ -34,19 +35,22 @@ return function(x_pos, y_pos)
 
     entity.launch = function(self)
         if state.button_left and state.button_right then
-            entity.body:setLinearVelocity(0, -500)
+            entity.body:setLinearVelocity(0, -entity.speed)
         elseif state.button_left then
-            entity.body:setLinearVelocity(-300, -300)
+            -- TODO: use state speed and angle to calculate
+            entity.body:setLinearVelocity(-entity.speed, -entity.speed)
         elseif state.button_right then
-            entity.body:setLinearVelocity(300, -300)
+            entity.body:setLinearVelocity(entity.speed, -entity.speed)
         else
-            entity.body:setLinearVelocity(0, -500)
+            entity.body:setLinearVelocity(0, -entity.speed)
         end
 
         entity.last_state = "normal"
     end
 
     entity.update = function(self, dt)
+        entity.speed = state.speed
+
         if state.ball_standby == true then
             self.body:setLinearVelocity(0, 0)
             local posx, posy = self.body:getPosition()
@@ -62,17 +66,17 @@ return function(x_pos, y_pos)
 
             local vel_x, vel_y = self.body:getLinearVelocity()
             local speed = math.abs(vel_x) + math.abs(vel_y)
-            local vel_x_is_critical = math.abs(vel_x) > entity_max_speed
-            local vel_y_is_critical = math.abs(vel_y) > entity_max_speed
-            local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
-            local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
+            local vel_x_is_critical = math.abs(vel_x) > entity.speed
+            local vel_y_is_critical = math.abs(vel_y) > entity.speed
+            -- local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
+            -- local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
 
             -- Prevent fast ball when contacting with moving paddle side 
             if vel_x_is_critical then
                 if vel_x > 0 then
-                    self.body:setLinearVelocity(entity_max_speed, vel_y)
+                    self.body:setLinearVelocity(entity.speed, vel_y)
                 else
-                    self.body:setLinearVelocity(-entity_max_speed, vel_y)
+                    self.body:setLinearVelocity(-entity.speed, vel_y)
                 end
             end
 
