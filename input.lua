@@ -16,6 +16,8 @@ local press_functions = {
     -- Restart Game
     r = function()
         state.lives = state.default_lives
+        state.speed = state.default_speed
+        state.level = 0
         state.ball_standby = true
     end,
 

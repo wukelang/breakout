@@ -25,21 +25,37 @@ love.update = function(dt)
         return
     end
     
-    local have_bricks = false
+    -- TODO: refactor into game state entity?
+
+    -- Reset: destroy and regenerate game entities.
+    if state.level == 0 then
+        for _, entity in ipairs(entities) do
+            if entity.fixture ~= nil then
+                entity.fixture:destroy()
+            end
+        end
+
+        entities = generate_bricks:generate_game_entities()
+    end
+    
+    state.have_bricks = false
     -- First check if there are any bricks left.
     for _, entity in ipairs(entities) do
-        if entity.type == 'brick' then have_bricks = true end
+        if entity.type == 'brick' then 
+            state.have_bricks = true 
+        end
     end
 
     -- Generate new bricks if no bricks left.
-    if have_bricks ~= true then
+    if state.have_bricks ~= true then
         state.ball_standby = true
 
-        local bricks = generate_bricks:generate_bricks(entites)
+        -- local bricks = generate_bricks:generate_bricks(entities)
+        local bricks = generate_bricks:generate_bricks()
         for i=1, #bricks do
             entities[#entities+1] = bricks[i]
         end
-        state.stage_cleared = false
+        -- state.stage_cleared = false
         state.level = state.level + 1
         state.speed = state.speed + 20
         sounds.level_clear:play()

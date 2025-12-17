@@ -21,5 +21,6 @@ return {
         {1.0, 1.0, 1.0, 1.0}   -- white
     },
     paused = false,
-    stage_cleared = false
+    stage_cleared = false,
+    have_bricks = false
 }
