@@ -32,9 +32,9 @@ return {
 
         local brick_row_colors = { "red", "orange", "yellow", "green", "cyan" }
 
-        -- for i = 0, 39 do
+        for i = 0, 39 do
         -- for i = 0, 7 do
-        for i = 0, 1 do
+        -- for i = 0, 0 do
             local row_num = math.floor((brick_width * i) / brick_row_width) + 1
             local brick_x = ((brick_width * i) % brick_row_width) + 180
             local brick_y = (row_num * brick_height) + 120
@@ -60,7 +60,7 @@ return {
             boundary_top(400, -6),
             boundary_vertical(-6, 300),
             boundary_vertical(805, 300),
-            paddle(300, 500),
+            paddle(400, 500),
             ball(300, 300),
             pause_text(),
             game_over_text(),

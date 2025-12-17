@@ -4,9 +4,7 @@ local sounds = require('sounds')
 
 
 return function(x_pos, y_pos)
-    -- local entity_min_speed = state.default_speed
-    -- local entity.speed = state.speed
-
+    
     local entity = {}
     entity.body = love.physics.newBody(world, x_pos, y_pos, 'dynamic')
     entity.body:setMass(32)
@@ -17,10 +15,11 @@ return function(x_pos, y_pos)
     entity.fixture:setRestitution(1)
     entity.fixture:setFriction(0)
     entity.fixture:setUserData(entity)
-
+    
     entity.type = "ball"
     entity.last_state = nil
     entity.speed = state.speed
+    local min_vy = state.speed * math.sin(math.rad(70))
 
     entity.draw = function(self)
         local self_x, self_y = self.body:getWorldCenter()
@@ -53,6 +52,7 @@ return function(x_pos, y_pos)
 
     entity.update = function(self, dt)
         entity.speed = state.speed
+        min_vy = math.floor(entity.speed * math.sin(math.rad(20)))
 
         if state.ball_standby == true then
             self.body:setLinearVelocity(0, 0)
@@ -74,12 +74,22 @@ return function(x_pos, y_pos)
             -- local vel_x_too_slow = math.abs(vel_x) < entity_min_speed
             -- local vel_y_too_slow = math.abs(vel_y) < entity_min_speed
 
-            -- Prevent fast ball when contacting with moving paddle side 
+            -- Prevent fast horizontal ball when hit by moving paddle side 
             if vel_x_is_critical then
                 if vel_x > 0 then
                     self.body:setLinearVelocity(entity.speed, vel_y)
                 else
                     self.body:setLinearVelocity(-entity.speed, vel_y)
+                end
+            end
+
+            -- Prevent slow / stuck vertical movement
+            if math.abs(vel_y) < min_vy then
+                -- print("slow vy")
+                if vel_y > 0 then
+                    self.body:setLinearVelocity(vel_x, min_vy)
+                else
+                    self.body:setLinearVelocity(vel_x, -min_vy)
                 end
             end
 
