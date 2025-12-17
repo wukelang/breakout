@@ -16,22 +16,39 @@ love.load = function()
 end
 
 love.update = function(dt)
-    local have_bricks = false
-    local index = 1
-
     state.game_over = false
     if state.lives <= 0 then
         state.game_over = true
     end
-
+    
     if state.game_over or state.paused then
         return
     end
+    
+    local have_bricks = false
+    -- First check if there are any bricks left.
+    for _, entity in ipairs(entities) do
+        if entity.type == 'brick' then have_bricks = true end
+    end
 
+    -- Generate new bricks if no bricks left.
+    if have_bricks ~= true then
+        state.ball_standby = true
+
+        local bricks = generate_bricks:generate_bricks(entites)
+        for i=1, #bricks do
+            entities[#entities+1] = bricks[i]
+        end
+        state.stage_cleared = false
+        state.level = state.level + 1
+        state.speed = state.speed + 20
+        sounds.level_clear:play()
+    end
+
+    -- Update each entity.
+    local index = 1
     while index <= #entities do
         local entity = entities[index]
-
-        if entity.type == 'brick' then have_bricks = true end
 
         if entity.update then entity:update(dt) end
 
@@ -42,19 +59,6 @@ love.update = function(dt)
         else
             index = index + 1
         end
-    end
-
-    -- Generate new bricks if stage cleared.
-    if have_bricks ~= true then
-        local bricks = generate_bricks:generate_bricks(entites)
-        for i=1, #bricks do
-            entities[#entities+1] = bricks[i]
-        end
-        state.stage_cleared = false
-        state.ball_standby = true
-        state.level = state.level + 1
-        state.speed = state.speed + 20
-        -- have_bricks = true
     end
 
     world:update(dt)

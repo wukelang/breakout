@@ -1,5 +1,6 @@
 local world = require('world')
 local state = require('state')
+local sounds = require('sounds')
 
 return function(x_pos, y_pos)
     local entity = {}
@@ -10,6 +11,7 @@ return function(x_pos, y_pos)
 
     entity.end_contact = function()
         state.lives = state.lives - 1
+        sounds.miss:play()
 
         if state.lives > 0 then
             state.ball_standby = true
