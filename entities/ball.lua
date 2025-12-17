@@ -89,7 +89,8 @@ return function(x_pos, y_pos)
 
     entity.pre_solve_contact = function(self, entity_a, entity_b, contact)
         if entity_b.type and entity_b.type == "brick" then
-            sounds.brick_blip:play()
+            local brick_blip = sounds.brick_blip:clone()
+            brick_blip:play()
         elseif entity_b.type and entity_b.type == "paddle" then
             sounds.blip:play()
         end
