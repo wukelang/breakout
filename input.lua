@@ -15,6 +15,8 @@ local press_functions = {
 
     -- Restart Game
     r = function()
+        if state.paused then return end
+        
         state.lives = state.default_lives
         state.speed = state.default_speed
         state.level = 0
@@ -26,11 +28,14 @@ local press_functions = {
     end,
 
     space = function()
-        if state.game_over or state.stage_cleared then
-            return
-        end
+        if state.scene == "game" then
 
-        state.paused = not state.paused
+            if state.game_over or state.stage_cleared then
+                return
+            end
+
+            state.paused = not state.paused
+        end
     end
 }
 

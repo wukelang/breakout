@@ -21,6 +21,8 @@ game.reset_entities = function(self, entity_manager)
     for _, brick in ipairs(bricks) do
         entity_manager:add(brick)
     end
+
+    sounds.game_start:play()
 end
 
 game.draw = function(self)

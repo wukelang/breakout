@@ -6,10 +6,8 @@ local main_menu_scene = require('main-menu-scene')
 
 
 love.draw = function()
-
     if state.scene == "main" then
         main_menu_scene:draw()
-
 
     elseif state.scene == "game" then
         game_scene:draw()
@@ -22,7 +20,11 @@ love.load = function()
 end
 
 love.update = function(dt)
+    state.last_scene = state.scene
+
     if state.scene == "game" then
+        -- Reset game if entering from different state
+
         game_scene:update(dt)
     end
 end

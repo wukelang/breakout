@@ -48,7 +48,16 @@ return {
             -- else
             --     table.insert(bricks, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
             -- end
-            table.insert(bricks, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
+
+            local random = math.random(1, 100)
+            -- local brick = brick(brick_x, brick_y, brick_row_colors[row_num])
+            if random < 15 then
+                table.insert(bricks, 1, brick_bomb(brick_x, brick_y, brick_row_colors[row_num]))
+            else
+                -- Normal Brick
+                table.insert(bricks, 1, brick(brick_x, brick_y, brick_row_colors[row_num]))
+            end
+
         end
 
         return bricks
