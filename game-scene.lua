@@ -1,3 +1,4 @@
+local world = require('world')
 local state = require('state')
 local sounds = require('sounds')
 local generate_bricks = require("generate-bricks")
@@ -28,17 +29,15 @@ game.update = function(self, dt, entity_manager)
     end
 
     if state.game_over or state.paused then 
-        -- print("game over")
         return
     end
 
     -- Reset Game
     if state.level == 0 then
         game.reset_entities(self, entity_manager)
-        state.level = state.level + 1
+        state.level = 1
     end
 
-    -- First check if there are any bricks left.
     state.have_bricks = false
     for _, entity in ipairs(entity_manager.entities) do
         if entity.type == 'brick' then 
@@ -65,6 +64,7 @@ game.update = function(self, dt, entity_manager)
 
     entity_manager:update(dt)
 
+    world:update(dt)
 end
 
 return game
