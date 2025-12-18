@@ -1,21 +1,30 @@
 local input = require('input')
 local state = require('state')
-local generate_bricks = require("generate-bricks")
-local entity_manager = require('entity-manager')
-local game_scene = require("game-scene")
+local generate_bricks = require('generate-bricks')
+local game_scene = require('game-scene')
+local main_menu_scene = require('main-menu-scene')
 
 
 love.draw = function()
-    entity_manager:draw()
+
+    if state.scene == "main" then
+        main_menu_scene:draw()
+
+
+    elseif state.scene == "game" then
+        game_scene:draw()
+    end
 end
 
 love.load = function()
     love.graphics.setBackgroundColor(0.1, 0.1, 0.1, 0.1)
+
 end
 
 love.update = function(dt)
-    game_scene:update(dt, entity_manager)
-
+    if state.scene == "game" then
+        game_scene:update(dt)
+    end
 end
 
 love.focus = function(focused)

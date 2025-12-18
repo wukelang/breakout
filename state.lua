@@ -1,5 +1,12 @@
 
 return {
+    -- Scene: 
+        -- 1 = main menu, 2 = gameplay, 3 = game over screen
+    -- scene = "game",
+    scene = "main",
+    last_scene = "main",
+
+    -- Gameplay
     ball_standby = true,
     paddle_center_x = 400,
     paddle_center_y = 300,

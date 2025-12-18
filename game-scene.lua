@@ -2,6 +2,7 @@ local world = require('world')
 local state = require('state')
 local sounds = require('sounds')
 local generate_bricks = require("generate-bricks")
+local entity_manager = require('entity-manager')
 
 
 local game = {}
@@ -22,7 +23,12 @@ game.reset_entities = function(self, entity_manager)
     end
 end
 
-game.update = function(self, dt, entity_manager)
+game.draw = function(self)
+    entity_manager:draw()
+end
+
+-- game.update = function(self, dt, entity_manager)
+game.update = function(self, dt)
     state.game_over = false
     if state.lives <= 0 then
         state.game_over = true
