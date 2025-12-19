@@ -45,6 +45,8 @@ return function(x_pos, y_pos)
         local title_width = textures.big_font:getWidth(title_text)
         local title_height = textures.big_font:getHeight(title_text)
 
+        love.graphics.print("Lang 2025", textures.font, 650, 560)
+
         love.graphics.print("BREAKOUT++", textures.big_font,
             (window_width / 2) - (title_width / 2),
             (window_height / 2) - title_height - 100
