@@ -2,6 +2,8 @@
 
 Simple clone of the arcade game Breakout, with 20% more bombs. Developed using the LOVE2D Lua framework and self-made assets.
 
+[Download from here](https://github.com/wukelang/breakout/releases)
+
 [itch.io page](https://langdev.itch.io/breakout)
 
 ## Gameplay Features
@@ -17,8 +19,7 @@ Simple clone of the arcade game Breakout, with 20% more bombs. Developed using t
 - Esc: exit game  
 
 ## Screenshots
-<img src="src/img/breakout++_HA1Ty7phkd.png" alt="menu screen" width="300"/>
-<img src="src/img/breakout++_g2s7hKuc2E.png" alt="gameplay screen" width="300"/>
+| <img src="src/img/breakout++_HA1Ty7phkd.png" alt="menu screen" width="300"/>  | <img src="src/img/breakout++_g2s7hKuc2E.png" alt="gameplay screen" width="300"/>  |
 
 ## Acknowledgements
 
