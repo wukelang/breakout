@@ -9,7 +9,7 @@ return function(x_pos, y_pos)
         local level_text = "level: " .. level
         local speed_text = "speed: " .. speed
         love.graphics.print(level_text, x_pos, y_pos)
-        love.graphics.print(speed_text, x_pos, y_pos + 10)
+        -- love.graphics.print(speed_text, x_pos, y_pos + 10)
     end
 
     entity.update = function(self, dt)

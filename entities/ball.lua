@@ -25,11 +25,11 @@ return function(x_pos, y_pos)
         local self_x, self_y = self.body:getWorldCenter()
         love.graphics.circle('fill', self_x, self_y, self.shape:getRadius())
 
-        local vx, vy = self.body:getLinearVelocity()
-        vx = math.floor(vx)
-        vy = math.floor(vy)
-        local text = "ball: " .. vx .. " " .. vy
-        love.graphics.print(text, 0, 580)
+        -- local vx, vy = self.body:getLinearVelocity()
+        -- vx = math.floor(vx)
+        -- vy = math.floor(vy)
+        -- local text = "ball: " .. vx .. " " .. vy
+        -- love.graphics.print(text, 0, 580)
     end
 
     entity.launch = function(self)
@@ -80,6 +80,14 @@ return function(x_pos, y_pos)
                     self.body:setLinearVelocity(entity.speed, vel_y)
                 else
                     self.body:setLinearVelocity(-entity.speed, vel_y)
+                end
+            end
+
+            if vel_y_is_critical then
+                if vel_y > 0 then
+                    self.body:setLinearVelocity(vel_x, entity.speed)
+                else
+                    self.body:setLinearVelocity(-vel_y, entity.speed)
                 end
             end
 

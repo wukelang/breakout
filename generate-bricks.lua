@@ -37,7 +37,7 @@ return {
         -- for i = 0, 0 do
             local row_num = math.floor((brick_width * i) / brick_row_width) + 1
             local brick_x = ((brick_width * i) % brick_row_width) + 180
-            local brick_y = (row_num * brick_height) + 120
+            local brick_y = (row_num * brick_height) + 80
             -- print(row_num)
             -- print(brick_x, brick_y)
 
@@ -76,8 +76,8 @@ return {
             -- stage_clear_text(),
             lives_display(0, 0),
             fps_display(0, 10),
-            input_display(0, 20),
-            level_display(0, 30)
+            -- input_display(0, 30),
+            level_display(0, 20)
         }
 
         return entities
