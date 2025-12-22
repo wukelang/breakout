@@ -1,0 +1,12 @@
+https://love2d.org/wiki/Game_Distribution
+
+Windows:
+
+1. Compress the project files (not directory) into a .zip file.
+
+2. Change the .zip extension into .love (e.g. breakout.zip -> breakout.love).
+
+3. Make sure love.exe and your .love file are in the same directory.
+
+4. With an admin level terminal open, execute the following command:
+copy /b love.exe+breakout.love breakout.exe

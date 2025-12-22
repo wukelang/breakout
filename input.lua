@@ -23,6 +23,15 @@ local press_functions = {
         state.ball_standby = true
     end,
 
+    m = function()
+        local volume = love.audio.getVolume()
+        if volume > 0 then
+            love.audio.setVolume(0)
+        else
+            love.audio.setVolume(100)
+        end
+    end,
+
     escape = function()
         love.event.quit()
     end,
