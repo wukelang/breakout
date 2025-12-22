@@ -31,6 +31,10 @@ end
 
 -- game.update = function(self, dt, entity_manager)
 game.update = function(self, dt)
+    if state.scene ~= "game" then
+        entity_manager:clear()
+    end
+
     state.game_over = false
     if state.lives <= 0 then
         state.game_over = true

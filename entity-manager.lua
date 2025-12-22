@@ -21,8 +21,6 @@ function entity_manager:add_list(entity_list)
 end
 
 function entity_manager:update(dt)
-    -- print("stil updating")
-
     local index = 1
     -- print(#entities)
     while index <= #self.entities do

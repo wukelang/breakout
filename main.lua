@@ -1,8 +1,7 @@
 local input = require('input')
 local state = require('state')
-local generate_bricks = require('generate-bricks')
-local game_scene = require('game-scene')
-local main_menu_scene = require('main-menu-scene')
+local game_scene = require('scenes/game-scene')
+local main_menu_scene = require('scenes/main-menu-scene')
 
 
 love.draw = function()
@@ -19,7 +18,7 @@ love.load = function()
 end
 
 love.update = function(dt)
-    state.last_scene = state.scene
+    -- state.last_scene = state.scene
 
     if state.scene == "game" then
         -- Reset game if entering from different state

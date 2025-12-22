@@ -34,6 +34,11 @@ local press_functions = {
 
     escape = function()
         love.event.quit()
+        -- if state.scene == "main" then
+        --     love.event.quit()
+        -- elseif state.scene == "game" then
+        --     state.scene = "main"
+        -- end
     end,
 
     space = function()
