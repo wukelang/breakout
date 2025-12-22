@@ -1,7 +1,7 @@
 local world = require('world')
 local textures = require('textures')
 local sounds = require('sounds')  -- Move to base brick class
-local brick = require('entities/brick')
+local brick = require('entities/gameplay/brick')
 
 return function(x_pos, y_pos, color)
     local entity = brick(x_pos, y_pos, color)

@@ -1,22 +1,22 @@
 -- Gameplay
-local boundary_vertical = require('entities/boundary-vertical')
-local boundary_horizontal = require('entities/boundary-horizontal')
-local boundary_top = require('entities/boundary-top')
-local boundary_bottom = require('entities/boundary-bottom')
+local boundary_vertical = require('entities/gameplay/boundary-vertical')
+local boundary_horizontal = require('entities/gameplay/boundary-horizontal')
+local boundary_top = require('entities/gameplay/boundary-top')
+local boundary_bottom = require('entities/gameplay/boundary-bottom')
 
-local paddle = require('entities/paddle')
-local ball = require('entities/ball')
-local brick = require('entities/brick')
-local brick_bomb = require("entities/brick-bomb")
+local paddle = require('entities/gameplay/paddle')
+local ball = require('entities/gameplay/ball')
+local brick = require('entities/gameplay/brick')
+local brick_bomb = require("entities/gameplay/brick-bomb")
 
 -- UI
-local pause_text = require('entities/pause-text')
-local game_over_text = require('entities/game-over-text')
-local stage_clear_text = require('entities/stage-clear-text')
-local input_display = require('entities/input-display')
-local fps_display = require('entities/fps-display')
-local lives_display = require('entities/lives-display')
-local level_display = require('entities/level-display')
+local pause_text = require('entities/ui/pause-text')
+local game_over_text = require('entities/ui/game-over-text')
+local stage_clear_text = require('entities/ui/stage-clear-text')
+local input_display = require('entities/ui/input-display')
+local fps_display = require('entities/ui/fps-display')
+local lives_display = require('entities/ui/lives-display')
+local level_display = require('entities/ui/level-display')
 
 return {
     generate_bricks = function()
