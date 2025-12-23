@@ -1,6 +1,7 @@
 # BREAKOUT++
 
-Simple clone of the arcade game Breakout, with 20% more bombs. Developed using the LOVE2D Lua framework and self-made assets.
+Simple clone of the arcade game Breakout, with 20% more bombs. Developed using the LOVE2D Lua framework and self-made assets.  
+![hippo](src/img/gameplay.gif)
 
 [Download from here](https://github.com/wukelang/breakout/releases)
 
@@ -16,6 +17,7 @@ Simple clone of the arcade game Breakout, with 20% more bombs. Developed using t
 - Up: launch ball  
 - Space: pause  
 - R: reset  
+- M: mute sound
 - Esc: exit game  
 
 ## Screenshots
